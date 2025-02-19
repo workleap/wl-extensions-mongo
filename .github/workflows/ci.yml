@@ -16,7 +16,7 @@ concurrency:
 jobs:
   main:
     # As of 18/12/2024, Ephemeral Mongo supports only MongoDB 6.0, which is compatible only with Ubuntu 22.04 (https://www.mongodb.com/docs/v6.0/tutorial/install-mongodb-on-ubuntu/)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
