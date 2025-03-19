@@ -7,7 +7,8 @@ on:
 
 jobs:
   main:
-    runs-on: ubuntu-latest
+    # As of 18/12/2024, Ephemeral Mongo supports only MongoDB 6.0, which is compatible only with Ubuntu 22.04 (https://www.mongodb.com/docs/v6.0/tutorial/install-mongodb-on-ubuntu/)
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -15,10 +16,6 @@ jobs:
           fetch-depth: 0
 
       - uses: actions/setup-dotnet@v4
-
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: "6.0.x"
 
       - run: ./Build.ps1
         shell: pwsh
