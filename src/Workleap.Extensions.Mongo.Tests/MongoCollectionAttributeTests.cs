@@ -23,6 +23,8 @@ public class MongoCollectionAttributeTests : BaseUnitTest
     [Theory]
     [InlineData("4SalesTakes")]
     [InlineData("sales-takes")]
+    [InlineData("Sales^Takes")]
+    [InlineData("Sales$Takes")]
     [InlineData("sale$Taxes")]
     public void Attribute_Throws_Given_Invalid_CollectionName(string collectionName)
     {
