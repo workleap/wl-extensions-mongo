@@ -1,4 +1,4 @@
-﻿using Workleap.Extensions.Xunit;
+using Workleap.Extensions.Xunit;
 
 namespace Workleap.Extensions.Mongo.Tests;
 
@@ -12,6 +12,7 @@ public class MongoCollectionAttributeTests : BaseUnitTest
     [InlineData("SalesTaxes")]
     [InlineData("salesTaxes")]
     [InlineData("S4lesTakes")]
+    [InlineData("sales_takes")]
     [InlineData("SalesTakes4")]
     public void Attribute_Ok_Given_Valid_CollectionName(string collectionName)
     {
@@ -22,7 +23,8 @@ public class MongoCollectionAttributeTests : BaseUnitTest
     [Theory]
     [InlineData("4SalesTakes")]
     [InlineData("sales-takes")]
-    [InlineData("sales_takes")]
+    [InlineData("Sales^Takes")]
+    [InlineData("Sales$Takes")]
     [InlineData("sale$Taxes")]
     public void Attribute_Throws_Given_Invalid_CollectionName(string collectionName)
     {
