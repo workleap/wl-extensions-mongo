@@ -13,6 +13,12 @@ concurrency:
   group: ${{ github.workflow }}-${{github.event_name}}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
+# We are using OpenID Connect to authenticate with Azure with secret.
+# https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-azure
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   main:
     # As of 18/12/2024, Ephemeral Mongo supports only MongoDB 6.0, which is compatible only with Ubuntu 22.04 (https://www.mongodb.com/docs/v6.0/tutorial/install-mongodb-on-ubuntu/)
@@ -56,6 +62,8 @@ jobs:
     with:
       environment: development
     secrets: inherit
+
+
 
 
 
