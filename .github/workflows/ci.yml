@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -34,6 +34,7 @@ jobs:
         shell: pwsh
 
   pack:
+    needs: [ci]
     runs-on: [self-hosted, idp]
     steps:
       - uses: actions/checkout@v4
