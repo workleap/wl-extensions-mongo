@@ -1,5 +1,9 @@
 #Requires -Version 5.0
 
+param(
+  [switch]$SkipTests
+)
+
 Begin {
     $ErrorActionPreference = "stop"
 }
@@ -19,10 +23,12 @@ Process {
     try {
         Push-Location $workingDir
         Remove-Item $outputDir -Force -Recurse -ErrorAction SilentlyContinue
-    
+
         Exec { & dotnet clean -c Release }
         Exec { & dotnet build -c Release }
-        Exec { & dotnet test  -c Release --results-directory "$outputDir" --no-restore -l "trx" -l "console;verbosity=detailed" }
+        if (-not $SkipTests) {
+            Exec { & dotnet test  -c Release --results-directory "$outputDir" --no-restore -l "trx" -l "console;verbosity=detailed" }
+        }
         Exec { & dotnet pack  -c Release -o "$outputDir" }
 
         if (($null -ne $env:NUGET_SOURCE ) -and ($null -ne $env:NUGET_API_KEY)) {
