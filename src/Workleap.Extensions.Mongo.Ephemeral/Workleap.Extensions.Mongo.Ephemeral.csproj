@@ -2,8 +2,6 @@
   <PropertyGroup>
     <TargetFrameworks>net472;net8.0;netstandard2.0</TargetFrameworks>
     <IsPackable>True</IsPackable>
-    <IncludeSymbols>True</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyTitle>Workleap.Extensions.Mongo.Ephemeral</AssemblyTitle>
     <PackageId>Workleap.Extensions.Mongo.Ephemeral</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
