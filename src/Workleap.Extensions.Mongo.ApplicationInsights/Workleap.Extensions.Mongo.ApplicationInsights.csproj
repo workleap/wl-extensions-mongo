@@ -2,8 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>True</IsPackable>
-    <IncludeSymbols>True</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <AssemblyTitle>Workleap.Extensions.Mongo.ApplicationInsights</AssemblyTitle>
     <PackageId>Workleap.Extensions.Mongo.ApplicationInsights</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
