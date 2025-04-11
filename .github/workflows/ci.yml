@@ -10,7 +10,7 @@ on:
 
 # Prevent duplicate runs if Renovate falls back to creating a PR
 concurrency:
-  group: ${{ github.workflow }}-${{github.event_name}}-${{ github.head_ref || github.ref_name }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 # We are using OpenID Connect to authenticate with Azure with secret.
@@ -22,7 +22,6 @@ permissions:
 jobs:
   ci:
     runs-on: ubuntu-22.04
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,12 +35,13 @@ jobs:
   pack:
     needs: [ci]
     runs-on: [self-hosted, idp]
+    environment: ci
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 'Azuze CLI login'
+      - name: 'Azure CLI login'
         uses: azure/login@v2
         with:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
