@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;netstandard2.0</TargetFrameworks>
+    <TargetFramework>net8.0</TargetFramework>
     <IsPackable>True</IsPackable>
     <AssemblyName>Workleap.Extensions.Mongo.Abstractions</AssemblyName>
     <PackageId>Workleap.Extensions.Mongo.Abstractions.v2</PackageId>
@@ -28,10 +28,6 @@
     <PackageReference Include="MongoDB.Driver" VersionOverride="2.30.0" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
-  </ItemGroup>
-
   <ItemGroup>
     <None Include="..\..\README.md" Link="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
@@ -56,10 +52,6 @@
     <ItemGroup>
       <_OurPrivateAssetsFiles Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
       <_OurRoslynAnalyzersDlls Include="@(_OurPrivateAssetsFiles)" Condition=" '%(Filename)' == 'Workleap.Extensions.Mongo.Analyzers' And '%(Extension)' == '.dll' " />
-    </ItemGroup>
-
-    <!-- Prevent copying the Roslyn analyzer files multiple times (because this project targets multiple frameworks) -->
-    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
       <TfmSpecificPackageFile Include="@(_OurRoslynAnalyzersDlls)" PackagePath="analyzers\dotnet\cs" />
     </ItemGroup>
   </Target>
