@@ -37,7 +37,6 @@ internal sealed class ReusableMongoRunner
             var options = new MongoRunnerOptions
             {
                 UseSingleNodeReplicaSet = true,
-                KillMongoProcessesWhenCurrentProcessExits = true,
             };
 
             var binaryDirectory = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_BINARYDIRECTORY")?.Trim();
