@@ -10,8 +10,6 @@
 
   <ItemGroup>
     <Compile Include="..\Workleap.Extensions.Mongo.Analyzers.Tests\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Analyzers.Tests\bin\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Analyzers.Tests\obj\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>

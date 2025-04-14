@@ -10,8 +10,6 @@
 
   <ItemGroup>
     <Compile Include="..\Workleap.Extensions.Mongo.Tests\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Tests\bin\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Tests\obj\**\*.cs" />
 
     <None Include="..\Workleap.Extensions.Mongo.Tests\appsettings*.json" CopyToOutputDirectory="Always" />
   </ItemGroup>

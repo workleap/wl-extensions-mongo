@@ -15,8 +15,6 @@
 
   <ItemGroup>
     <Compile Include="..\Workleap.Extensions.Mongo.Abstractions\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Abstractions\bin\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Abstractions\obj\**\*.cs" />
 
     <AdditionalFiles Include="..\Workleap.Extensions.Mongo.Abstractions\*.txt" />
   </ItemGroup>

@@ -11,8 +11,6 @@
 
   <ItemGroup>
     <Compile Include="..\Workleap.Extensions.Mongo.Ephemeral\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Ephemeral\bin\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo.Ephemeral\obj\**\*.cs" />
 
     <AdditionalFiles Include="..\Workleap.Extensions.Mongo.Ephemeral\*.txt" />
   </ItemGroup>

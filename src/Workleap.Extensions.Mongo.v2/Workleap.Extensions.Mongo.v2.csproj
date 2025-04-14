@@ -15,8 +15,6 @@
 
   <ItemGroup>
     <Compile Include="..\Workleap.Extensions.Mongo\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo\bin\**\*.cs" />
-    <Compile Remove="..\Workleap.Extensions.Mongo\obj\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
