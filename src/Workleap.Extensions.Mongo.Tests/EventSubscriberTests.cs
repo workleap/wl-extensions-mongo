@@ -24,14 +24,12 @@ public class EventSubscriberTests : BaseIntegrationTest<EventSubscriberTests.Eve
 
         const string expectedOutput = @"
 CommandTracingEventSubscriber.CommandStartedEvent(find)
-  ApplicationInsightsEventSubscriber.CommandStartedEvent(find)
-    CommandLoggingEventSubscriber.CommandStartedEvent(find)
-      UserDefinedEventSubscriber1.CommandStartedEvent(find)
-        UserDefinedEventSubscriber2.CommandStartedEvent(find)
-        UserDefinedEventSubscriber2.CommandSucceededEvent(find)
-      UserDefinedEventSubscriber1.CommandSucceededEvent(find)
-    CommandLoggingEventSubscriber.CommandSucceededEvent(find)
-  ApplicationInsightsEventSubscriber.CommandSucceededEvent(find)
+  CommandLoggingEventSubscriber.CommandStartedEvent(find)
+    UserDefinedEventSubscriber1.CommandStartedEvent(find)
+      UserDefinedEventSubscriber2.CommandStartedEvent(find)
+      UserDefinedEventSubscriber2.CommandSucceededEvent(find)
+    UserDefinedEventSubscriber1.CommandSucceededEvent(find)
+  CommandLoggingEventSubscriber.CommandSucceededEvent(find)
 CommandTracingEventSubscriber.CommandSucceededEvent(find)";
 
         Assert.Equal(expectedOutput.Trim(), actualOutput.Trim());

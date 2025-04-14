@@ -9,8 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{E16B8921-E8EC-4439-9E89-E7136187EA8E}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		Directory.Build.props = Directory.Build.props
+		..\Directory.Build.props = ..\Directory.Build.props
+		..\Directory.Packages.props = ..\Directory.Packages.props
 		..\README.md = ..\README.md
 		..\global.json = ..\global.json
 	EndProjectSection
@@ -23,7 +23,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Analyzers.Tests", "Workleap.Extensions.Mongo.Analyzers.Tests\Workleap.Extensions.Mongo.Analyzers.Tests.csproj", "{4E098500-7424-457C-9B02-DF36B8157FEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.ApplicationInsights", "Workleap.Extensions.Mongo.ApplicationInsights\Workleap.Extensions.Mongo.ApplicationInsights.csproj", "{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.v2", "Workleap.Extensions.Mongo.v2\Workleap.Extensions.Mongo.v2.csproj", "{3243875A-3DD6-4AC5-B372-E321FD32A59F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Abstractions.v2", "Workleap.Extensions.Mongo.Abstractions.v2\Workleap.Extensions.Mongo.Abstractions.v2.csproj", "{709D2848-5EB2-4F7D-8017-EB9F971500F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Ephemeral.v2", "Workleap.Extensions.Mongo.Ephemeral.v2\Workleap.Extensions.Mongo.Ephemeral.v2.csproj", "{2B6B0261-AC63-43D3-82B5-49DCD50FF813}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.v2.Tests", "Workleap.Extensions.Mongo.v2.Tests\Workleap.Extensions.Mongo.v2.Tests.csproj", "{9B11DB70-0DF3-4BCF-981C-109CF896C35C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v2", "v2", "{8FDCED78-064E-46F0-AB4F-5B6047D0EDD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Analyzers.v2.Tests", "Workleap.Extensions.Mongo.Analyzers.v2.Tests\Workleap.Extensions.Mongo.Analyzers.v2.Tests.csproj", "{E62B934C-331B-44B5-952F-54F624BA3EF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,9 +68,32 @@ Global
 		{4E098500-7424-457C-9B02-DF36B8157FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E098500-7424-457C-9B02-DF36B8157FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E098500-7424-457C-9B02-DF36B8157FEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3243875A-3DD6-4AC5-B372-E321FD32A59F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3243875A-3DD6-4AC5-B372-E321FD32A59F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3243875A-3DD6-4AC5-B372-E321FD32A59F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3243875A-3DD6-4AC5-B372-E321FD32A59F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709D2848-5EB2-4F7D-8017-EB9F971500F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709D2848-5EB2-4F7D-8017-EB9F971500F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709D2848-5EB2-4F7D-8017-EB9F971500F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709D2848-5EB2-4F7D-8017-EB9F971500F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B6B0261-AC63-43D3-82B5-49DCD50FF813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B6B0261-AC63-43D3-82B5-49DCD50FF813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B6B0261-AC63-43D3-82B5-49DCD50FF813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B6B0261-AC63-43D3-82B5-49DCD50FF813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B11DB70-0DF3-4BCF-981C-109CF896C35C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B11DB70-0DF3-4BCF-981C-109CF896C35C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B11DB70-0DF3-4BCF-981C-109CF896C35C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B11DB70-0DF3-4BCF-981C-109CF896C35C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E62B934C-331B-44B5-952F-54F624BA3EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E62B934C-331B-44B5-952F-54F624BA3EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E62B934C-331B-44B5-952F-54F624BA3EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E62B934C-331B-44B5-952F-54F624BA3EF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{709D2848-5EB2-4F7D-8017-EB9F971500F6} = {8FDCED78-064E-46F0-AB4F-5B6047D0EDD8}
+		{2B6B0261-AC63-43D3-82B5-49DCD50FF813} = {8FDCED78-064E-46F0-AB4F-5B6047D0EDD8}
+		{3243875A-3DD6-4AC5-B372-E321FD32A59F} = {8FDCED78-064E-46F0-AB4F-5B6047D0EDD8}
+		{9B11DB70-0DF3-4BCF-981C-109CF896C35C} = {8FDCED78-064E-46F0-AB4F-5B6047D0EDD8}
+		{E62B934C-331B-44B5-952F-54F624BA3EF0} = {8FDCED78-064E-46F0-AB4F-5B6047D0EDD8}
 	EndGlobalSection
 EndGlobal

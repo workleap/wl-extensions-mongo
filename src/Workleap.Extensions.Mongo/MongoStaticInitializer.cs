@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Options;
+#if MONGODB_V2
 using MongoDB.Bson;
+#endif
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 
@@ -31,9 +33,11 @@ internal sealed class MongoStaticInitializer
                 return;
             }
 
+#if MONGODB_V2
 #pragma warning disable CS0618 // Type or member is obsolete
             BsonDefaults.GuidRepresentationMode = this._options.Value.GuidRepresentationMode;
 #pragma warning restore CS0618
+#endif
 
             foreach (var kvp in this._options.Value.BsonSerializers)
             {

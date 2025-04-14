@@ -37,7 +37,6 @@ internal sealed class ReusableMongoRunner
             var options = new MongoRunnerOptions
             {
                 UseSingleNodeReplicaSet = true,
-                KillMongoProcessesWhenCurrentProcessExits = true,
             };
 
             var binaryDirectory = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_BINARYDIRECTORY")?.Trim();
@@ -50,12 +49,6 @@ internal sealed class ReusableMongoRunner
             if (!string.IsNullOrEmpty(dataDirectory))
             {
                 options.DataDirectory = dataDirectory;
-            }
-
-            var additionalArguments = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_ADDITIONALARGUMENTS")?.Trim();
-            if (!string.IsNullOrEmpty(additionalArguments))
-            {
-                options.AdditionalArguments = additionalArguments;
             }
 
             var connectionTimeout = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_CONNECTIONTIMEOUT")?.Trim();

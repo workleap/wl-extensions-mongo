@@ -3,16 +3,22 @@
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <DefineConstants>$(DefineConstants);MONGODB_V3</DefineConstants>
+    <AssemblyName>Workleap.Extensions.Mongo.Tests</AssemblyName>
+    <RootNamespace>Workleap.Extensions.Mongo.Tests</RootNamespace>
+    <DefineConstants>$(DefineConstants);MONGODB_V2</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="appsettings*.json" CopyToOutputDirectory="Always" />
+    <Compile Include="..\Workleap.Extensions.Mongo.Tests\**\*.cs" />
+    <Compile Remove="..\Workleap.Extensions.Mongo.Tests\bin\**\*.cs" />
+    <Compile Remove="..\Workleap.Extensions.Mongo.Tests\obj\**\*.cs" />
+
+    <None Include="..\Workleap.Extensions.Mongo.Tests\appsettings*.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Workleap.Extensions.Mongo.Ephemeral\Workleap.Extensions.Mongo.Ephemeral.csproj" />
-    <ProjectReference Include="..\Workleap.Extensions.Mongo\Workleap.Extensions.Mongo.csproj" />
+    <ProjectReference Include="..\Workleap.Extensions.Mongo.Ephemeral.v2\Workleap.Extensions.Mongo.Ephemeral.v2.csproj" />
+    <ProjectReference Include="..\Workleap.Extensions.Mongo.v2\Workleap.Extensions.Mongo.v2.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,15 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net8.0;netstandard2.0</TargetFrameworks>
     <IsPackable>True</IsPackable>
     <AssemblyName>Workleap.Extensions.Mongo</AssemblyName>
-    <PackageId>Workleap.Extensions.Mongo</PackageId>
+    <PackageId>Workleap.Extensions.Mongo.v2</PackageId>
+    <RootNamespace>Workleap.Extensions.Mongo</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <DefineConstants>$(DefineConstants);MONGODB_V3</DefineConstants>
+    <DefineConstants>$(DefineConstants);MONGODB_V2</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Workleap.Extensions.Mongo.Abstractions\Workleap.Extensions.Mongo.Abstractions.csproj" />
+    <ProjectReference Include="..\Workleap.Extensions.Mongo.Abstractions.v2\Workleap.Extensions.Mongo.Abstractions.v2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Workleap.Extensions.Mongo\**\*.cs" />
+    <Compile Remove="..\Workleap.Extensions.Mongo\bin\**\*.cs" />
+    <Compile Remove="..\Workleap.Extensions.Mongo\obj\**\*.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,9 +28,9 @@
     <PackageReference Include="Microsoft.Extensions.Options" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Diagnostics.DiagnosticSource" />
-    <PackageReference Include="System.Threading.Channels"/>
+    <PackageReference Include="System.Threading.Channels" />
   </ItemGroup>
 
   <ItemGroup>
