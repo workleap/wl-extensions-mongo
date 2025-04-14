@@ -4,7 +4,7 @@
     <Authors>Workleap</Authors>
     <Owners>Workleap</Owners>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <LangVersion>12</LangVersion>
+    <LangVersion>13</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Description>Provides MongoDB access through .NET dependency injection, following Microsoft.Extensions.* library practices.</Description>
