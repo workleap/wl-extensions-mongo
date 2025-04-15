@@ -77,7 +77,7 @@ internal sealed class UniqueIndexName
     private static string ComputeIndexHash(string name)
     {
         var hash = SHA256.HashData(Encoding.UTF8.GetBytes(name));
-        return Convert.ToHexString(hash).ToLowerInvariant()[..IndexPartialHashLength];
+        return Convert.ToHexString(hash)[..IndexPartialHashLength].ToLowerInvariant();
     }
 
     public static bool TryCreate(BsonValue indexDocument, [MaybeNullWhen(false)] out UniqueIndexName indexName)
