@@ -37,17 +37,17 @@ jobs:
           azure-subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           keyvault-name: ${{ vars.IDP_CICD_KEYVAULT_NAME }}
           secret-name: "gsoft-nuget-feed-ado-pat"
-  
+
       - uses: actions/setup-dotnet@v4
         with:
-          source-url: ${{ secrets.NUGET_GSOFTDEV_FEED_URL }}
+          source-url: ${{ secrets.GSOFTDEV_NUGET_SOURCE }}
         env:
           NUGET_AUTH_TOKEN: ${{ steps.get_gsoft_nuget_feed_secret.outputs.secret }}
-  
+
       - run: ./Build.ps1
         shell: pwsh
         env:
-          NUGET_SOURCE: ${{ secrets.NUGET_GSOFTDEV_FEED_URL }}
+          NUGET_SOURCE: ${{ vars.GSOFTDEV_NUGET_SOURCE }}
           NUGET_API_KEY: ${{ steps.get_gsoft_nuget_feed_secret.outputs.secret }}
   
   linearb:
