@@ -21,7 +21,6 @@ permissions:
 
 jobs:
   ci:
-    needs: [ci]
     runs-on: [self-hosted, idp]
     environment: ci
     steps:
