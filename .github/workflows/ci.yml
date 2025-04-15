@@ -38,10 +38,6 @@ jobs:
           keyvault-name: ${{ vars.IDP_CICD_KEYVAULT_NAME }}
           secret-name: "gsoft-nuget-feed-ado-pat"
 
-      - run: |
-          echo "${{ steps.get_gsoft_nuget_feed_secret.outputs.secret }}".Substring(0,2)
-        shell: pwsh
-
       - uses: actions/setup-dotnet@v4
         with:
           source-url: ${{ vars.GSOFTDEV_NUGET_SOURCE }}
