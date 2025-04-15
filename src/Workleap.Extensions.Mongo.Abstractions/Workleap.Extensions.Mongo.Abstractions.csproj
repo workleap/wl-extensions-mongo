@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net472;net8.0;netstandard2.0</TargetFrameworks>
     <IsPackable>True</IsPackable>
-    <AssemblyName>Workleap.Extensions.Mongo.Abstractions</AssemblyName>
+    <AssemblyTitle>Workleap.Extensions.Mongo.Abstractions</AssemblyTitle>
     <PackageId>Workleap.Extensions.Mongo.Abstractions</PackageId>
     <RootNamespace>Workleap.Extensions.Mongo</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <DefineConstants>$(DefineConstants);MONGODB_V3</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,12 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Workleap.ComponentModel.DataAnnotations" />
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers">
+    <PackageReference Include="Workleap.ComponentModel.DataAnnotations" Version="1.5.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MongoDB.Driver" />
+    <PackageReference Include="MongoDB.Driver" Version="2.30.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +49,10 @@
     <ItemGroup>
       <_OurPrivateAssetsFiles Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;WithMetadataValue('PrivateAssets', 'All'))" />
       <_OurRoslynAnalyzersDlls Include="@(_OurPrivateAssetsFiles)" Condition=" '%(Filename)' == 'Workleap.Extensions.Mongo.Analyzers' And '%(Extension)' == '.dll' " />
+    </ItemGroup>
+
+    <!-- Prevent copying the Roslyn analyzer files multiple times (because this project targets multiple frameworks) -->
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
       <TfmSpecificPackageFile Include="@(_OurRoslynAnalyzersDlls)" PackagePath="analyzers\dotnet\cs" />
     </ItemGroup>
   </Target>

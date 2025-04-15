@@ -68,7 +68,14 @@ internal sealed class SensitiveInformationConvention : ConventionBase, IPostProc
 
         public override int GetHashCode()
         {
+#if NET6_0_OR_GREATER
             return HashCode.Combine(this.ValueType, this.SensitivityScope);
+#else
+            unchecked
+            {
+                return (this.ValueType.GetHashCode() * 397) ^ (int)this.SensitivityScope;
+            }
+#endif
         }
     }
 }

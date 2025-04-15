@@ -8,11 +8,7 @@ namespace Workleap.Extensions.Mongo.Ephemeral;
 // Dispose() is only called when IMongoClient is requested from the dependency injection service provider.
 // The service provider, when disposed, also dispose alive objects that are registered.
 // https://docs.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-guidelines#disposal-of-services
-#if MONGODB_V3
-internal sealed class DisposableMongoClient : IMongoClient
-#else
 internal sealed class DisposableMongoClient : IMongoClient, IDisposable
-#endif
 {
     private readonly IMongoClient _underlyingMongoClient;
     private readonly string _defaultDatabaseName;
@@ -27,28 +23,6 @@ internal sealed class DisposableMongoClient : IMongoClient, IDisposable
 
     public MongoClientSettings Settings => this._underlyingMongoClient.Settings;
 
-#if MONGODB_V3
-    public ClientBulkWriteResult BulkWrite(IReadOnlyList<BulkWriteModel> models, ClientBulkWriteOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        return this._underlyingMongoClient.BulkWrite(models, options, cancellationToken);
-    }
-
-    public ClientBulkWriteResult BulkWrite(IClientSessionHandle session, IReadOnlyList<BulkWriteModel> models, ClientBulkWriteOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        return this._underlyingMongoClient.BulkWrite(session, models, options, cancellationToken);
-    }
-
-    public Task<ClientBulkWriteResult> BulkWriteAsync(IReadOnlyList<BulkWriteModel> models, ClientBulkWriteOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        return this._underlyingMongoClient.BulkWriteAsync(models, options, cancellationToken);
-    }
-
-    public Task<ClientBulkWriteResult> BulkWriteAsync(IClientSessionHandle session, IReadOnlyList<BulkWriteModel> models, ClientBulkWriteOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        return this._underlyingMongoClient.BulkWriteAsync(session, models, options, cancellationToken);
-    }
-
-#endif
     public void DropDatabase(string name, CancellationToken cancellationToken = default)
     {
         this._underlyingMongoClient.DropDatabase(name, cancellationToken);

@@ -21,7 +21,7 @@
      - If there's a vulnerability in these packages.
     Right now, our Roslyn analyzers are simple enough to stick to 2021's 3.9.0 Roslyn APIs.
     -->
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" VersionOverride="3.9.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.9.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>

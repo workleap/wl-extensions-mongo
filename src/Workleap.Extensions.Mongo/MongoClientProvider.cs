@@ -112,15 +112,5 @@ internal sealed class MongoClientProvider : IMongoClientProvider, IDisposable
         {
             disposable.Dispose();
         }
-
-#if MONGODB_V3
-        foreach (var client in this._mongoClients.Values)
-        {
-            if (client.IsValueCreated)
-            {
-                client.Value.Dispose();
-            }
-        }
-#endif
     }
 }

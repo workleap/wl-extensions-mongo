@@ -36,7 +36,7 @@ public static class AsyncCursorExtensions
 
         using var cursor = await source.ToCursorAsync(cancellationToken).ConfigureAwait(false);
 
-        await foreach (var document in ToAsyncEnumerable(cursor, cancellationToken).ConfigureAwait(false))
+        await foreach (var document in ToAsyncEnumerable(cursor, cancellationToken))
         {
             yield return document;
         }

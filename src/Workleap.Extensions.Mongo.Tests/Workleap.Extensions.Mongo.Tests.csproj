@@ -3,7 +3,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <DefineConstants>$(DefineConstants);MONGODB_V3</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,17 +10,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Workleap.Extensions.Mongo.ApplicationInsights\Workleap.Extensions.Mongo.ApplicationInsights.csproj" />
     <ProjectReference Include="..\Workleap.Extensions.Mongo.Ephemeral\Workleap.Extensions.Mongo.Ephemeral.csproj" />
     <ProjectReference Include="..\Workleap.Extensions.Mongo\Workleap.Extensions.Mongo.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Workleap.Extensions.Xunit" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
-    <PackageReference Include="System.Linq.Async" />
-    <PackageReference Include="xunit" />
-    <PackageReference Include="xunit.runner.visualstudio">
+    <PackageReference Include="Workleap.Extensions.Xunit" Version="1.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.11.2" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

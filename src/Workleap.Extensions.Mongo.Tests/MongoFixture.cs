@@ -2,8 +2,12 @@ using System.Collections.Concurrent;
 using System.Security.Cryptography;
 using Workleap.ComponentModel.DataAnnotations;
 using Workleap.Extensions.Xunit;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Channel;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Workleap.Extensions.Mongo.ApplicationInsights;
 using Workleap.Extensions.Mongo.Ephemeral;
 using Workleap.Extensions.Mongo.Security;
 
@@ -15,8 +19,13 @@ public class MongoFixture : BaseIntegrationFixture
     {
         base.ConfigureServices(services);
 
+        var configuration = TelemetryConfiguration.CreateDefault();
+        configuration.ConnectionString = "InstrumentationKey=fake-instrumentation-key";
+        configuration.TelemetryChannel = new InMemoryChannel();
+
         services.TryAddSingleton<AmbientUserContext>();
-        services.AddMongo(Configure).UseEphemeralRealServer().AddEncryptor<AesMongoValueEncryptor>();
+        services.AddMongo(Configure).AddApplicationInsights().UseEphemeralRealServer().AddEncryptor<AesMongoValueEncryptor>();
+        services.AddSingleton(new TelemetryClient(configuration));
 
         return services;
     }

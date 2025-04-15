@@ -21,6 +21,18 @@ permissions:
 
 jobs:
   ci:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+
+      - run: ./Build.ps1
+        shell: pwsh
+
+  pack:
     needs: [ci]
     runs-on: [self-hosted, idp]
     environment: ci
@@ -50,14 +62,14 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{ steps.get_secrets.outputs.ado_pat }}
 
-      - run: ./Build.ps1
+      - run: ./Build.ps1 -SkipTests
         shell: pwsh
         env:
           NUGET_SOURCE: ${{ secrets.NUGET_GSOFTDEV_FEED_URL }}
           NUGET_API_KEY: ${{ steps.get_secrets.outputs.ado_pat }}
 
   linearb:
-    needs: [ci]
+    needs: [pack]
     uses: workleap/wl-reusable-workflows/.github/workflows/linearb-deployment.yml@main
     with:
       environment: development

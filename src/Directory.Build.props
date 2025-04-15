@@ -4,19 +4,18 @@
     <Authors>Workleap</Authors>
     <Owners>Workleap</Owners>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <LangVersion>13</LangVersion>
+    <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Description>Provides MongoDB access through .NET dependency injection, following Microsoft.Extensions.* library practices.</Description>
-    <UseArtifactsOutput>true</UseArtifactsOutput>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Workleap.DotNet.CodingStandards">
+    <PackageReference Include="Workleap.DotNet.CodingStandards" Version="1.1.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="GitVersion.MsBuild" Condition=" '$(Configuration)' == 'Release' ">
+    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0" Condition=" '$(Configuration)' == 'Release' ">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -26,8 +25,4 @@
     <Using Include="Xunit" />
     <Using Include="Xunit.Abstractions" />
   </ItemGroup>
-
-  <PropertyGroup Condition="$(MSBuildProjectName.Contains('Tests'))">
-    <NoWarn>$(NoWarn);CA2007</NoWarn>
-  </PropertyGroup>
 </Project>

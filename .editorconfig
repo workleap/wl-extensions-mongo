@@ -4,7 +4,7 @@ root = true
 indent_style = space
 charset = utf-8
 
-[*.{csproj,yml,yaml,conf,json}]
+[*.{csproj,yml,yaml,conf}]
 indent_size = 2
 
 [Directory.Build.props]
@@ -20,7 +20,3 @@ indent_size = 4
 indent_size = 4
 tab_width = 4
 max_line_length = off
-
-[*.cs]
-# CA2007: Consider calling ConfigureAwait on the awaited task
-dotnet_diagnostic.CA2007.severity = warning

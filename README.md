@@ -90,9 +90,6 @@ public class PersonDocument : IMongoDocument // IMongoDocument is an empty marke
 
 **The third NuGet package**, [Workleap.Extensions.Mongo.Ephemeral](https://www.nuget.org/packages/Workleap.Extensions.Mongo.Ephemeral/), is designed for your integration tests. It can be utilized whenever you require a real yet ephemeral MongoDB cluster with a single node replica set. Through dependency injection, each integration test method can have access to a unique and isolated database.
 
-> [!IMPORTANT]
-> Starting 2.0.0, `Workleap.Extensions.Mongo` and related packages target MongoDB C# driver 3.x. To remain on the driver v2.x, use the new `Workleap.Extensions.Mongo.v2`, `Workleap.Extensions.Mongo.Abstractions.v2` and `Workleap.Extensions.Mongo.Ephemeral.v2` packages.
-
 ## Adding and configuring MongoDB clients
 
 When registering your dependency injection services, you can invoke `services.AddMongo(...)` as demonstrated in the previous section. This action registers MongoDB dependencies and the main MongoDB cluster by providing the connection string and default (primary) database name.

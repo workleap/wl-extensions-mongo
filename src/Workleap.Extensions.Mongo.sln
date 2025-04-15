@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo", "Workleap.Extensions.Mongo\Workleap.Extensions.Mongo.csproj", "{A14E288C-5BF2-474A-A214-7A620A776AE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Tests", "Workleap.Extensions.Mongo.Tests\Workleap.Extensions.Mongo.Tests.csproj", "{639EC4EA-499F-4936-8864-F07B6293BE1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{E16B8921-E8EC-4439-9E89-E7136187EA8E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		..\README.md = ..\README.md
+		..\global.json = ..\global.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Abstractions", "Workleap.Extensions.Mongo.Abstractions\Workleap.Extensions.Mongo.Abstractions.csproj", "{9F410354-6AEC-4A46-84B4-214076363660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Ephemeral", "Workleap.Extensions.Mongo.Ephemeral\Workleap.Extensions.Mongo.Ephemeral.csproj", "{8B6DF34F-F90A-4ACA-88D4-6208252029C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Analyzers", "Workleap.Extensions.Mongo.Analyzers\Workleap.Extensions.Mongo.Analyzers.csproj", "{9AA412C1-F59D-40B9-8747-1FC2EF7510AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.Analyzers.Tests", "Workleap.Extensions.Mongo.Analyzers.Tests\Workleap.Extensions.Mongo.Analyzers.Tests.csproj", "{4E098500-7424-457C-9B02-DF36B8157FEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workleap.Extensions.Mongo.ApplicationInsights", "Workleap.Extensions.Mongo.ApplicationInsights\Workleap.Extensions.Mongo.ApplicationInsights.csproj", "{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A14E288C-5BF2-474A-A214-7A620A776AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A14E288C-5BF2-474A-A214-7A620A776AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A14E288C-5BF2-474A-A214-7A620A776AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A14E288C-5BF2-474A-A214-7A620A776AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639EC4EA-499F-4936-8864-F07B6293BE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639EC4EA-499F-4936-8864-F07B6293BE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639EC4EA-499F-4936-8864-F07B6293BE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639EC4EA-499F-4936-8864-F07B6293BE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F410354-6AEC-4A46-84B4-214076363660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F410354-6AEC-4A46-84B4-214076363660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F410354-6AEC-4A46-84B4-214076363660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F410354-6AEC-4A46-84B4-214076363660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B6DF34F-F90A-4ACA-88D4-6208252029C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B6DF34F-F90A-4ACA-88D4-6208252029C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B6DF34F-F90A-4ACA-88D4-6208252029C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B6DF34F-F90A-4ACA-88D4-6208252029C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AA412C1-F59D-40B9-8747-1FC2EF7510AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AA412C1-F59D-40B9-8747-1FC2EF7510AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AA412C1-F59D-40B9-8747-1FC2EF7510AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AA412C1-F59D-40B9-8747-1FC2EF7510AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E098500-7424-457C-9B02-DF36B8157FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E098500-7424-457C-9B02-DF36B8157FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E098500-7424-457C-9B02-DF36B8157FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E098500-7424-457C-9B02-DF36B8157FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81ED89B-648E-484F-B39D-7EB8EEA47ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

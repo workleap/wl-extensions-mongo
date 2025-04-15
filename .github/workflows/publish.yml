@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   main:
+    # As of 18/12/2024, Ephemeral Mongo supports only MongoDB 6.0, which is compatible only with Ubuntu 22.04 (https://www.mongodb.com/docs/v6.0/tutorial/install-mongodb-on-ubuntu/)
     runs-on: [self-hosted, idp]
 
     steps:
@@ -37,7 +38,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
 
-      - run: ./Build.ps1
+      - run: ./Build.ps1 -SkipTests
         shell: pwsh
         env:
           NUGET_SOURCE: ${{ secrets.NUGET_SOURCE }}

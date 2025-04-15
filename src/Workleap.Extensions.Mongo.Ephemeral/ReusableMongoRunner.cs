@@ -36,7 +36,6 @@ internal sealed class ReusableMongoRunner
             // that would degrade the overall performance.
             var options = new MongoRunnerOptions
             {
-                Version = MongoVersion.V8,
                 UseSingleNodeReplicaSet = true,
             };
 
@@ -46,29 +45,28 @@ internal sealed class ReusableMongoRunner
                 options.BinaryDirectory = binaryDirectory;
             }
 
-            var version = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_VERSION")?.Trim();
-            if (int.TryParse(version, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsedVersion))
+            var dataDirectory = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_DATADIRECTORY")?.Trim();
+            if (!string.IsNullOrEmpty(dataDirectory))
             {
-                options.Version = parsedVersion switch
-                {
-                    6 => MongoVersion.V6,
-                    7 => MongoVersion.V7,
-                    8 => MongoVersion.V8,
-                    _ => options.Version
-                };
+                options.DataDirectory = dataDirectory;
             }
 
-            var edition = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_EDITION")?.Trim();
-            if ("enterprise".Equals(edition, StringComparison.OrdinalIgnoreCase))
+            var additionalArguments = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_ADDITIONALARGUMENTS")?.Trim();
+            if (!string.IsNullOrEmpty(additionalArguments))
             {
-                options.Edition = MongoEdition.Enterprise;
-                options.AdditionalArguments = ["--storageEngine", "inMemory"];
+                options.AdditionalArguments = additionalArguments;
             }
 
             var connectionTimeout = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_CONNECTIONTIMEOUT")?.Trim();
             if (TimeSpan.TryParse(connectionTimeout, CultureInfo.InvariantCulture, out var parsedConnectionTimeout))
             {
                 options.ConnectionTimeout = parsedConnectionTimeout;
+            }
+
+            var useSingleNodeReplicaSet = Environment.GetEnvironmentVariable("WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_USESINGLENODEREPLICASET")?.Trim();
+            if (bool.TryParse(useSingleNodeReplicaSet, out var parsedUseSingleNodeReplicaSet))
+            {
+                options.UseSingleNodeReplicaSet = parsedUseSingleNodeReplicaSet;
             }
 
             this._runner ??= MongoRunner.Run(options);

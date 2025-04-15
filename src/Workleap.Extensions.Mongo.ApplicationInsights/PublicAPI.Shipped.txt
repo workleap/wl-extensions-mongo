@@ -1,0 +1,3 @@
+#nullable enable
+Workleap.Extensions.Mongo.ApplicationInsights.MongoBuilderExtensions
+static Workleap.Extensions.Mongo.ApplicationInsights.MongoBuilderExtensions.AddApplicationInsights(this Workleap.Extensions.Mongo.MongoBuilder! builder) -> Workleap.Extensions.Mongo.MongoBuilder!
