@@ -44,7 +44,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
         with:
-          source-url: ${{ secrets.GSOFTDEV_NUGET_SOURCE }}
+          source-url: ${{ vars.GSOFTDEV_NUGET_SOURCE }}
         env:
           NUGET_AUTH_TOKEN: ${{ steps.get_gsoft_nuget_feed_secret.outputs.secret }}
 
