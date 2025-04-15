@@ -53,7 +53,7 @@ jobs:
       - run: ./Build.ps1
         shell: pwsh
         env:
-          NUGET_SOURCE: ${{ vars.NUGET_GSOFTDEV_FEED_URL }}
+          NUGET_SOURCE: ${{ vars.GSOFTDEV_NUGET_SOURCE  }}
           NUGET_API_KEY: ${{ steps.get_secrets.outputs.ado_pat }}
 
   linearb:
