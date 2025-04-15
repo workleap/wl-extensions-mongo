@@ -35,7 +35,7 @@ jobs:
       - run: ./Build.ps1
         shell: pwsh
         env:
-          NUGET_SOURCE: ${{ secrets.NUGET_SOURCE }}
+          NUGET_SOURCE: ${{ vars.NUGET_SOURCE }}
           NUGET_API_KEY: ${{ steps.get_workleap_api_key_secret.outputs.secret }}
 
   linearb:

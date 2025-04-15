@@ -11,7 +11,7 @@ Process {
             throw ("An error occurred while executing command: {0}" -f $Command)
         }
     }
-    
+
     $workingDir = Join-Path $PSScriptRoot "src"
     $outputDir = Join-Path $PSScriptRoot ".output"
     $nupkgsPath = Join-Path $outputDir "*.nupkg"
