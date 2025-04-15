@@ -1,0 +1,21 @@
+﻿<Solution>
+  <Folder Name="/files/">
+    <File Path="..\Directory.Build.props" />
+    <File Path="..\Directory.Packages.props" />
+    <File Path="..\README.md" />
+    <File Path="..\global.json" />
+  </Folder>
+  <Folder Name="/v2/">
+    <Project Path="Workleap.Extensions.Mongo.Abstractions.v2\Workleap.Extensions.Mongo.Abstractions.v2.csproj" Type="Classic C#" />
+    <Project Path="Workleap.Extensions.Mongo.Analyzers.v2.Tests\Workleap.Extensions.Mongo.Analyzers.v2.Tests.csproj" Type="Classic C#" />
+    <Project Path="Workleap.Extensions.Mongo.Ephemeral.v2\Workleap.Extensions.Mongo.Ephemeral.v2.csproj" Type="Classic C#" />
+    <Project Path="Workleap.Extensions.Mongo.v2.Tests\Workleap.Extensions.Mongo.v2.Tests.csproj" Type="Classic C#" />
+    <Project Path="Workleap.Extensions.Mongo.v2\Workleap.Extensions.Mongo.v2.csproj" Type="Classic C#" />
+  </Folder>
+  <Project Path="Workleap.Extensions.Mongo.Abstractions\Workleap.Extensions.Mongo.Abstractions.csproj" Type="Classic C#" />
+  <Project Path="Workleap.Extensions.Mongo.Analyzers.Tests\Workleap.Extensions.Mongo.Analyzers.Tests.csproj" Type="Classic C#" />
+  <Project Path="Workleap.Extensions.Mongo.Analyzers\Workleap.Extensions.Mongo.Analyzers.csproj" Type="Classic C#" />
+  <Project Path="Workleap.Extensions.Mongo.Ephemeral\Workleap.Extensions.Mongo.Ephemeral.csproj" Type="Classic C#" />
+  <Project Path="Workleap.Extensions.Mongo.Tests\Workleap.Extensions.Mongo.Tests.csproj" Type="Classic C#" />
+  <Project Path="Workleap.Extensions.Mongo\Workleap.Extensions.Mongo.csproj" Type="Classic C#" />
+</Solution>

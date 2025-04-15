@@ -3,14 +3,20 @@
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>True</IsPackable>
     <AssemblyName>Workleap.Extensions.Mongo.Abstractions</AssemblyName>
-    <PackageId>Workleap.Extensions.Mongo.Abstractions</PackageId>
+    <PackageId>Workleap.Extensions.Mongo.Abstractions.v2</PackageId>
     <RootNamespace>Workleap.Extensions.Mongo</RootNamespace>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <DefineConstants>$(DefineConstants);MONGODB_V3</DefineConstants>
+    <DefineConstants>$(DefineConstants);MONGODB_V2</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Workleap.Extensions.Mongo.Analyzers\Workleap.Extensions.Mongo.Analyzers.csproj" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Workleap.Extensions.Mongo.Abstractions\**\*.cs" />
+
+    <AdditionalFiles Include="..\Workleap.Extensions.Mongo.Abstractions\*.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MongoDB.Driver" />
+    <PackageReference Include="MongoDB.Driver" VersionOverride="2.30.0" />
   </ItemGroup>
 
   <ItemGroup>

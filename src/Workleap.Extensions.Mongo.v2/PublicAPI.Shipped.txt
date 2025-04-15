@@ -46,6 +46,8 @@ Workleap.Extensions.Mongo.MongoServiceCollectionExtensions
 Workleap.Extensions.Mongo.MongoStaticOptions
 Workleap.Extensions.Mongo.MongoStaticOptions.BsonSerializers.get -> System.Collections.Generic.IDictionary<System.Type!, MongoDB.Bson.Serialization.IBsonSerializer!>!
 Workleap.Extensions.Mongo.MongoStaticOptions.ConventionPacks.get -> System.Collections.Generic.IList<Workleap.Extensions.Mongo.NamedConventionPack!>!
+Workleap.Extensions.Mongo.MongoStaticOptions.GuidRepresentationMode.get -> MongoDB.Bson.GuidRepresentationMode
+Workleap.Extensions.Mongo.MongoStaticOptions.GuidRepresentationMode.set -> void
 Workleap.Extensions.Mongo.MongoStaticOptions.MongoStaticOptions() -> void
 Workleap.Extensions.Mongo.MongoTelemetryOptions
 Workleap.Extensions.Mongo.MongoTelemetryOptions.CaptureCommandText.get -> bool

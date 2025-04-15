@@ -3,12 +3,18 @@
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <DefineConstants>$(DefineConstants);MONGODB_V3</DefineConstants>
+    <AssemblyName>Workleap.Extensions.Mongo.Analyzers.Tests</AssemblyName>
+    <RootNamespace>Workleap.Extensions.Mongo.Analyzers.Tests</RootNamespace>
+    <DefineConstants>$(DefineConstants);MONGODB_V2</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Workleap.Extensions.Mongo.Analyzers.Tests\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Workleap.Extensions.Mongo.Analyzers\Workleap.Extensions.Mongo.Analyzers.csproj" />
-    <ProjectReference Include="..\Workleap.Extensions.Mongo.Abstractions\Workleap.Extensions.Mongo.Abstractions.csproj" />
+    <ProjectReference Include="..\Workleap.Extensions.Mongo.Abstractions.v2\Workleap.Extensions.Mongo.Abstractions.v2.csproj" />
   </ItemGroup>
 
   <ItemGroup>
