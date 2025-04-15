@@ -62,6 +62,7 @@ jobs:
       - run: |
           echo "${{ secrets.NUGET_GSOFTDEV_FEED_URL }}".Substring(0, 26)
           echo "${{ steps.get_secrets.outputs.ado_pat }}".Substring(0, 2)
+        shell: pwsh
 
       - run: ./Build.ps1
         shell: pwsh
