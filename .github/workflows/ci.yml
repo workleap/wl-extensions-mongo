@@ -42,13 +42,13 @@ jobs:
         with:
           source-url: ${{ secrets.NUGET_GSOFTDEV_FEED_URL }}
         env:
-          NUGET_AUTH_TOKEN: ${{ steps.get_secrets.outputs.ado_pat }}
+          NUGET_AUTH_TOKEN: ${{ steps.get_gsoft_nuget_feed_secret.outputs.secret }}
 
       - run: ./Build.ps1
         shell: pwsh
         env:
           NUGET_SOURCE: ${{ secrets.NUGET_GSOFTDEV_FEED_URL }}
-          NUGET_API_KEY: ${{ steps.get_secrets.outputs.ado_pat }}
+          NUGET_API_KEY: ${{ steps.get_gsoft_nuget_feed_secret.outputs.secret }}
 
   linearb:
     needs: [ci]
