@@ -9,6 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Description>Provides MongoDB access through .NET dependency injection, following Microsoft.Extensions.* library practices.</Description>
     <UseArtifactsOutput>true</UseArtifactsOutput>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
