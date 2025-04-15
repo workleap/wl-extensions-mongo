@@ -51,7 +51,7 @@ jobs:
           azure-tenant-id: ${{ vars.AZURE_TENANT_ID }}
           azure-subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           keyvault-name: ${{ vars.IDP_CICD_KEYVAULT_NAME }}
-          secret-name: "gsoft-nuget-feed-ado-pat"
+          secret-name: "gsoft-nuget-feed-ado-pat_dummy"
   
       - uses: actions/setup-dotnet@v4
         with:
