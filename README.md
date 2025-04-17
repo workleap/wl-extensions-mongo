@@ -1,9 +1,25 @@
+<!-- omit from toc -->
 # Workleap.Extensions.Mongo
 
 [![nuget](https://img.shields.io/nuget/v/Workleap.Extensions.Mongo.svg?logo=nuget)](https://www.nuget.org/packages/Workleap.Extensions.Mongo/)
 [![build](https://img.shields.io/github/actions/workflow/status/workleap/wl-extensions-mongo/publish.yml?logo=github&branch=main)](https://github.com/workleap/wl-extensions-mongo/actions/workflows/publish.yml)
 
 Workleap.Extensions.Mongo is a convenient set of .NET libraries designed to enhance and streamline the [MongoDB C# driver](https://github.com/mongodb/mongo-csharp-driver) integration into your C# projects.
+
+- [Value proposition and features overview](#value-proposition-and-features-overview)
+- [Getting started](#getting-started)
+- [Adding and configuring MongoDB clients](#adding-and-configuring-mongodb-clients)
+- [Declaring Mongo Documents](#declaring-mongo-documents)
+- [Usage](#usage)
+- [Extensions](#extensions)
+- [Property Mapping](#property-mapping)
+- [Logging and distributed tracing](#logging-and-distributed-tracing)
+- [Index management](#index-management)
+- [Field encryption](#field-encryption)
+- [Ephemeral MongoDB databases for integration tests](#ephemeral-mongodb-databases-for-integration-tests)
+- [Included Roslyn analyzers](#included-roslyn-analyzers)
+- [License](#license)
+
 
 ## Value proposition and features overview
 
@@ -36,18 +52,47 @@ We offer three main NuGet packages:
 
 **Firstly**, [Workleap.Extensions.Mongo](https://www.nuget.org/packages/Workleap.Extensions.Mongo/), is the package that you'd ideally install in your *startup project*, where your main method resides. This is where you would incorporate our library into your dependency injection services and link your configuration to our option classes:
 
+**Configuration by convention**
+
+The library will attempt to read the connection string from your configuration at specific locations. 
+
 ```csharp
-// Method 1: Directly set the options values with C# code
+services.AddMongo();
+
+// appsettings.json
+{
+  // Option 1
+  "Mongo": {
+    "ConnectionString": "mongodb://localhost:27017",
+    "DefaultDatabaseName": "mydb"
+  },
+
+  // Option 2: database name can be omitted if included in the connection string
+  "Mongo": {
+    "ConnectionString": "mongodb://localhost:27017/mydb"
+  },
+
+  // Option 3
+  "ConnectionStrings": {
+    "Mongo": "mongodb://localhost:27017/mydb"
+  }
+}
+```
+
+**Explicit configuration**
+
+```csharp
+// Option 1: Directly set the options values with C# code
 services.AddMongo(options =>
 {
     options.ConnectionString = "[...]";
     options.DefaultDatabaseName = "marketing";
 });
 
-// Method 2: Bind the options values to a configuration section
+// Option 2: Bind the options values to a configuration section
 services.AddMongo(configuration.GetRequiredSection("Mongo").Bind);
 
-// Method 3: Lazily bind the options values to a configuration section
+// Option 3: Lazily bind the options values to a configuration section
 services.AddMongo();
 services.AddOptions<MongoClientOptions>().Bind(configuration.GetRequiredSection("Mongo"));
 
@@ -59,7 +104,7 @@ services.AddOptions<MongoClientOptions>().Bind(configuration.GetRequiredSection(
   }
 }
 
-// Method 4: Implement IConfigureNamedOptions<MongoClientOptions>:
+// Option 4: Implement IConfigureNamedOptions<MongoClientOptions>:
 // https://learn.microsoft.com/en-us/dotnet/core/extensions/options#use-di-services-to-configure-options
 ```
 
@@ -481,8 +526,8 @@ When this method is called, each time a database or collection is requested with
 When you dispose of the `IServiceProvider`, the related resources are destroyed. We leverage internal caching to avoid running multiple instances of MongoDB servers concurrently, opting instead to reuse a single instance. This method allows you to run multiple concurrent tests, each with their own MongoDB database. If your test runner crashes, the MongoDB process will be terminated, preventing orphaned processes from consuming unnecessary resources.
 
 Available environment variables:
-- `WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_BINARYDIRECTORY`: Specify the path of the MongoDB binaries
-- `WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_DATADIRECTORY`: Specify the path to store data
+- `WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_VERSION`: Specify the major version of the MongoDB server to use (ex: 6, 7, or 8)
+- `WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_EDITION`: Specify the edition of the MongoDB server to use (ex: community, enterprise)
 - `WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_CONNECTIONTIMEOUT`: Specify the timeout to connect to the database
 - `WORKLEAP_EXTENSIONS_MONGO_EPHEMERAL_USESINGLENODEREPLICASET`: Configure the replicaset
 
