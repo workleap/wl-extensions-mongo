@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Events;
 
@@ -15,10 +14,8 @@ public sealed class MongoClientOptions
         this.CommandPerformanceAnalysis = new MongoCommandPerformanceAnalysisOptions();
     }
 
-    [Required]
     public string ConnectionString { get; set; } = string.Empty;
 
-    [Required]
     public string DefaultDatabaseName { get; set; } = string.Empty;
 
     public Action<MongoClientSettings>? MongoClientSettingsConfigurator { get; set; }
@@ -34,25 +31,20 @@ public sealed class MongoClientOptions
 
 public sealed class MongoIndexingOptions
 {
-    [Required]
     public string DistributedLockName { get; set; } = "mongo-indexing";
 
-    [Required]
-    [Range(1, int.MaxValue)]
     public int LockMaxLifetimeInSeconds { get; set; } = 300;
 
-    [Required]
-    [Range(1, int.MaxValue)]
     public int LockAcquisitionTimeoutInSeconds { get; set; } = 60;
 }
 
 public sealed class MongoTelemetryOptions
 {
     internal static readonly string[] DefaultIgnoredCommandNames =
-    {
+    [
         // These commands would generate a lot of noise in the instrumentation output.
         "isMaster", "buildInfo", "saslStart", "saslContinue", "getLastError", "getMore", "listIndexes", "ping",
-    };
+    ];
 
     public MongoTelemetryOptions()
     {
