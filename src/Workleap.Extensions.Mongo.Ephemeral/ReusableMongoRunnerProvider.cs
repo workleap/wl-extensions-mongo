@@ -10,14 +10,23 @@ internal sealed class ReusableMongoRunnerProvider : IDisposable
 {
     private static readonly ConcurrentDictionary<string, Lazy<MongoRunnerPool>> LazyRunnerPools = new(StringComparer.Ordinal);
 
-    private readonly ConcurrentDictionary<string, List<IMongoRunner>> _rentedRunnersByClientName = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, List<IMongoRunner>> _rentedRunnersByClientName = [];
 
     public IMongoRunner GetRunner(string clientName)
     {
         var runner = LazyRunnerPools.GetOrAdd(clientName, CreateLazyMongoRunnerPool).Value.Rent();
 
-        var rentedRunners = this._rentedRunnersByClientName.GetOrAdd(clientName, static _ => []);
-        rentedRunners.Add(runner);
+        lock (this._rentedRunnersByClientName)
+        {
+            if (this._rentedRunnersByClientName.TryGetValue(clientName, out var rentedRunners))
+            {
+                rentedRunners.Add(runner);
+            }
+            else
+            {
+                this._rentedRunnersByClientName[clientName] = [runner];
+            }
+        }
 
         return runner;
     }
@@ -65,14 +74,17 @@ internal sealed class ReusableMongoRunnerProvider : IDisposable
 
     public void Dispose()
     {
-        foreach (var (clientName, rentedRunners) in this._rentedRunnersByClientName)
+        lock (this._rentedRunnersByClientName)
         {
-            foreach (var rentedRunner in rentedRunners)
+            foreach (var (clientName, rentedRunners) in this._rentedRunnersByClientName)
             {
-                LazyRunnerPools[clientName].Value.Return(rentedRunner);
+                foreach (var rentedRunner in rentedRunners)
+                {
+                    LazyRunnerPools[clientName].Value.Return(rentedRunner);
+                }
             }
-        }
 
-        this._rentedRunnersByClientName.Clear();
+            this._rentedRunnersByClientName.Clear();
+        }
     }
 }
