@@ -15,7 +15,7 @@
         <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
         <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.2" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-        <PackageVersion Include="MongoDB.Driver" Version="3.3.0" />
+        <PackageVersion Include="MongoDB.Driver" Version="3.4.0" />
         <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.11.2" />
         <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
         <PackageVersion Include="System.Formats.Asn1" Version="9.0.0" />
