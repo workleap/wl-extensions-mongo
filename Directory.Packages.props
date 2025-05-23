@@ -10,7 +10,7 @@
         <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.5" />
         <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" Version="1.1.2" />
         <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.10.0" />
-        <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4" />
+        <PackageVersion Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" />
         <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
         <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
         <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.2" />
