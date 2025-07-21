@@ -43,6 +43,7 @@ jobs:
     uses: workleap/wl-reusable-workflows/.github/workflows/linearb-deployment.yml@main
     with:
       environment: 'release'
+      cortexEntityIdOrTag: service-wl-extensions-mongo
     permissions:
       id-token: write
       contents: read
