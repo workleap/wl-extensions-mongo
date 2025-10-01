@@ -25,6 +25,6 @@
         <PackageVersion Include="Workleap.DotNet.CodingStandards" Version="1.1.29" />
         <PackageVersion Include="Workleap.Extensions.Xunit" Version="1.1.23" />
         <PackageVersion Include="xunit" Version="2.9.3" />
-        <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     </ItemGroup>
 </Project>
