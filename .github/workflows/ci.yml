@@ -28,6 +28,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: "global.json"
+          dotnet-version: |
+            9.0.x
+            8.0.x
+
       - name: Authenticate to Azure DevOps artifact feeds
         uses: workleap/wl-reusable-workflows/az-artifact-authenticate@main
         with:
