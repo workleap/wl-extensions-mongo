@@ -1,1 +1,4 @@
 #nullable enable
+Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>.ClientName(string! clientName) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
+Workleap.Extensions.Mongo.MongoCollectionAttribute.ClientName.get -> string?
+Workleap.Extensions.Mongo.MongoCollectionAttribute.ClientName.set -> void
