@@ -68,6 +68,42 @@ public sealed class MultipleMongoClientTests : BaseIntegrationTest<MultipleMongo
         }
     }
 
+    [Fact]
+    public void Collection_WithClientName_Resolves_To_Named_Client()
+    {
+        var collection = this.Services.GetRequiredService<IMongoCollection<NamedClientDocument>>();
+
+        // NamedClientDocument declares ClientName = FooClient ("foo"), whose app name is "app2"
+        Assert.Equal("app2", collection.Database.Client.Settings.ApplicationName);
+    }
+
+    [Fact]
+    public async Task UpdateIndexesAsync_WithoutClientNameOverride_Routes_Each_Type_To_Its_Declared_ClientName()
+    {
+        const string databaseName = "clientnameindextest";
+        var indexer = this.Services.GetRequiredService<IMongoIndexer>();
+
+        // No clientName override — each type should use its own declared ClientName
+        await indexer.UpdateIndexesAsync(new[] { typeof(NamedClientIndexDocument) }, databaseName: databaseName);
+
+        var fooClient = this.Services.GetRequiredService<IMongoClientProvider>().GetClient(FooClient);
+        var fooCollection = fooClient.GetDatabase(databaseName).GetCollection<NamedClientIndexDocument>();
+        var fooIndexNames = (await fooCollection.Indexes.ListAsync()).ToList()
+            .Select(i => i.GetElement("name").Value.AsString)
+            .ToList();
+
+        Assert.Contains("namedclientidx", fooIndexNames);
+
+        // Verify the default client did NOT get the index
+        var defaultCollection = this.Services.GetRequiredService<IMongoClient>()
+            .GetDatabase(databaseName).GetCollection<NamedClientIndexDocument>();
+        var defaultIndexNames = (await defaultCollection.Indexes.ListAsync()).ToList()
+            .Select(i => i.GetElement("name").Value.AsString)
+            .ToList();
+
+        Assert.DoesNotContain("namedclientidx", defaultIndexNames);
+    }
+
     [MongoCollection("cats", IndexProviderType = typeof(CatDocumentIndexes))]
     private sealed class CatDocument : MongoDocument
     {
@@ -81,6 +117,26 @@ public sealed class MultipleMongoClientTests : BaseIntegrationTest<MultipleMongo
             yield return new CreateIndexModel<CatDocument>(
                 Builders<CatDocument>.IndexKeys.Ascending(x => x.Name),
                 new CreateIndexOptions { Name = "name", Unique = true });
+        }
+    }
+
+    [MongoCollection("namedclientdoc", ClientName = FooClient)]
+    private sealed class NamedClientDocument : MongoDocument
+    {
+    }
+
+    [MongoCollection("namedclientidxdoc", ClientName = FooClient, IndexProviderType = typeof(NamedClientIndexDocumentIndexes))]
+    private sealed class NamedClientIndexDocument : MongoDocument
+    {
+    }
+
+    private sealed class NamedClientIndexDocumentIndexes : MongoIndexProvider<NamedClientIndexDocument>
+    {
+        public override IEnumerable<CreateIndexModel<NamedClientIndexDocument>> CreateIndexModels()
+        {
+            yield return new CreateIndexModel<NamedClientIndexDocument>(
+                Builders<NamedClientIndexDocument>.IndexKeys.Ascending("_id"),
+                new CreateIndexOptions { Name = "namedclientidx" });
         }
     }
 }

@@ -36,16 +36,16 @@ internal static class MongoCollectionInformationCache
         {
             if (documentType.GetCustomAttribute<MongoCollectionAttribute>() is { } attribute)
             {
-                return new MongoCollectionInformation(documentType, attribute.Name, attribute.DatabaseName, isRegisteredByConfiguration: false);
+                return new MongoCollectionInformation(documentType, attribute.Name, attribute.ClientName, attribute.DatabaseName, isRegisteredByConfiguration: false);
             }
 
             throw new ArgumentException(documentType + " must be decorated with " + nameof(MongoCollectionAttribute) + " or be registered by a " + typeof(IMongoCollectionConfiguration<>).MakeGenericType(documentType).Name);
         });
     }
 
-    internal static void SetCollectionInformation(Type documentType, string collectionName, string? databaseName)
+    internal static void SetCollectionInformation(Type documentType, string collectionName, string? clientName, string? databaseName)
     {
-        if (!CollectionInfos.TryAdd(documentType, new MongoCollectionInformation(documentType, collectionName, databaseName, isRegisteredByConfiguration: true)))
+        if (!CollectionInfos.TryAdd(documentType, new MongoCollectionInformation(documentType, collectionName, clientName, databaseName, isRegisteredByConfiguration: true)))
         {
             throw new ArgumentException($"Collection name for {documentType} already set.");
         }
@@ -53,15 +53,18 @@ internal static class MongoCollectionInformationCache
 
     public sealed class MongoCollectionInformation
     {
-        public MongoCollectionInformation(Type documentType, string collectionName, string? databaseName, bool isRegisteredByConfiguration)
+        public MongoCollectionInformation(Type documentType, string collectionName, string? clientName, string? databaseName, bool isRegisteredByConfiguration)
         {
             this.CollectionName = collectionName;
+            this.ClientName = clientName;
             this.DatabaseName = databaseName;
             this.DocumentType = documentType;
             this.IsRegisteredByConfiguration = isRegisteredByConfiguration;
         }
 
         public string CollectionName { get; }
+
+        public string? ClientName { get; }
 
         public string? DatabaseName { get; }
 

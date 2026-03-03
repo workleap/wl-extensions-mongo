@@ -18,6 +18,12 @@ public sealed class MongoCollectionBuilder<TDocument> : MongoCollectionBuilder, 
         return this;
     }
 
+    public IMongoCollectionBuilder<TDocument> ClientName(string clientName)
+    {
+        this._metadata.ClientName = clientName;
+        return this;
+    }
+
     public IMongoCollectionBuilder<TDocument> DatabaseName(string databaseName)
     {
         this._metadata.DatabaseName = databaseName;

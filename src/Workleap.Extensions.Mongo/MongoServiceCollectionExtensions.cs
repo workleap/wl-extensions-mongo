@@ -98,7 +98,7 @@ public static class MongoServiceCollectionExtensions
                     throw new ArgumentNullException($"{builderType} must specify a CollectionName");
                 }
 
-                MongoCollectionInformationCache.SetCollectionInformation(documentType, metadata.CollectionName!, metadata.DatabaseName);
+                MongoCollectionInformationCache.SetCollectionInformation(documentType, metadata.CollectionName!, metadata.ClientName, metadata.DatabaseName);
 
                 MongoConfigurationIndexStore.AddIndexProviderType(documentType, metadata.IndexProviderType);
 

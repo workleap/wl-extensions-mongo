@@ -7,6 +7,30 @@ namespace Workleap.Extensions.Mongo.Tests;
 public sealed class MongoCollectionBuilderTests
 {
     [Fact]
+    public void Builder_Sets_ClientName_Correctly()
+    {
+        var builder = new MongoCollectionBuilder<TestDocument>();
+        builder.CollectionName("collection1").ClientName("myCluster");
+
+        var metadata = builder.Build() as MongoCollectionMetadata<TestDocument>;
+
+        Assert.NotNull(metadata);
+        Assert.Equal("myCluster", metadata.ClientName);
+    }
+
+    [Fact]
+    public void Builder_ClientName_Is_Null_By_Default()
+    {
+        var builder = new MongoCollectionBuilder<TestDocument>();
+        builder.CollectionName("collection1");
+
+        var metadata = builder.Build() as MongoCollectionMetadata<TestDocument>;
+
+        Assert.NotNull(metadata);
+        Assert.Null(metadata.ClientName);
+    }
+
+    [Fact]
     public void Builder_Builds_Correctly()
     {
         const string collectionName = "collection1";
