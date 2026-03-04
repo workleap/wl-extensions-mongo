@@ -79,7 +79,8 @@ internal sealed class MongoIndexer : IMongoIndexer
 
         var collectionInfoByClientAndDatabase = enumeratedTypes
             .Select(t => MongoCollectionInformationCache.GetCollectionInformation(t))
-            .GroupBy(info => (ClientName: explicitClientOverride ?? info.ClientName ?? MongoDefaults.ClientName, info.DatabaseName));
+            // Use the effective database name (override if provided, otherwise the collection's DatabaseName) in the grouping key
+            .GroupBy(info => (ClientName: explicitClientOverride ?? info.ClientName ?? MongoDefaults.ClientName, DatabaseName: databaseName ?? info.DatabaseName));
 
         foreach (var collectionInfos in collectionInfoByClientAndDatabase)
         {
