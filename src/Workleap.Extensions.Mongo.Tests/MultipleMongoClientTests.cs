@@ -92,7 +92,7 @@ public sealed class MultipleMongoClientTests : BaseIntegrationTest<MultipleMongo
             .Select(i => i.GetElement("name").Value.AsString)
             .ToList();
 
-        Assert.Contains("namedclientidx", fooIndexNames);
+        Assert.Contains(fooIndexNames, name => name.StartsWith("namedclientidx"));
 
         // Verify the default client did NOT get the index
         var defaultCollection = this.Services.GetRequiredService<IMongoClient>()
@@ -101,7 +101,7 @@ public sealed class MultipleMongoClientTests : BaseIntegrationTest<MultipleMongo
             .Select(i => i.GetElement("name").Value.AsString)
             .ToList();
 
-        Assert.DoesNotContain("namedclientidx", defaultIndexNames);
+        Assert.DoesNotContain(defaultIndexNames, name => name.StartsWith("namedclientidx"));
     }
 
     [MongoCollection("cats", IndexProviderType = typeof(CatDocumentIndexes))]
@@ -128,6 +128,7 @@ public sealed class MultipleMongoClientTests : BaseIntegrationTest<MultipleMongo
     [MongoCollection("namedclientidxdoc", ClientName = FooClient, IndexProviderType = typeof(NamedClientIndexDocumentIndexes))]
     private sealed class NamedClientIndexDocument : MongoDocument
     {
+        public string Tag { get; set; } = string.Empty;
     }
 
     private sealed class NamedClientIndexDocumentIndexes : MongoIndexProvider<NamedClientIndexDocument>
@@ -135,7 +136,7 @@ public sealed class MultipleMongoClientTests : BaseIntegrationTest<MultipleMongo
         public override IEnumerable<CreateIndexModel<NamedClientIndexDocument>> CreateIndexModels()
         {
             yield return new CreateIndexModel<NamedClientIndexDocument>(
-                Builders<NamedClientIndexDocument>.IndexKeys.Ascending("_id"),
+                Builders<NamedClientIndexDocument>.IndexKeys.Ascending(x => x.Tag),
                 new CreateIndexOptions { Name = "namedclientidx" });
         }
     }
