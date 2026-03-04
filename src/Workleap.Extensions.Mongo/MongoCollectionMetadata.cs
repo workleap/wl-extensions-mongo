@@ -6,6 +6,8 @@ internal abstract class MongoCollectionMetadata
 {
     public string? CollectionName { get; internal set; }
 
+    public string? ClientName { get; internal set; }
+
     public string? DatabaseName { get; internal set; }
 
     public Type? IndexProviderType { get; internal set; }

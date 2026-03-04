@@ -30,4 +30,18 @@ public class MongoCollectionAttributeTests : BaseUnitTest
     {
         Assert.Throws<ArgumentException>(() => new MongoCollectionAttribute(collectionName));
     }
+
+    [Fact]
+    public void Attribute_ClientName_Is_Null_By_Default()
+    {
+        var attr = new MongoCollectionAttribute("people");
+        Assert.Null(attr.ClientName);
+    }
+
+    [Fact]
+    public void Attribute_Sets_ClientName_Correctly()
+    {
+        var attr = new MongoCollectionAttribute("people") { ClientName = "myCluster" };
+        Assert.Equal("myCluster", attr.ClientName);
+    }
 }

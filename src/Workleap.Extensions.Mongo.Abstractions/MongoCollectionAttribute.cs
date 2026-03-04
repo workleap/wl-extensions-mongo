@@ -14,6 +14,8 @@ public sealed class MongoCollectionAttribute : Attribute
 
     public string Name { get; }
 
+    public string? ClientName { get; set; }
+
     public string? DatabaseName { get; set; }
 
     public Type? IndexProviderType { get; set; }

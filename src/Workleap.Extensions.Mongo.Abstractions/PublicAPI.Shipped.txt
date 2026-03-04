@@ -8,6 +8,8 @@ Workleap.Extensions.Mongo.IndexedByAttribute
 Workleap.Extensions.Mongo.IndexedByAttribute.IndexedByAttribute(params string![]! indexes) -> void
 Workleap.Extensions.Mongo.IndexedByAttribute.Indexes.get -> string![]!
 Workleap.Extensions.Mongo.MongoCollectionAttribute
+Workleap.Extensions.Mongo.MongoCollectionAttribute.ClientName.get -> string?
+Workleap.Extensions.Mongo.MongoCollectionAttribute.ClientName.set -> void
 Workleap.Extensions.Mongo.MongoCollectionAttribute.DatabaseName.get -> string?
 Workleap.Extensions.Mongo.MongoCollectionAttribute.DatabaseName.set -> void
 Workleap.Extensions.Mongo.MongoCollectionAttribute.IndexProviderType.get -> System.Type?
@@ -37,6 +39,7 @@ static readonly Workleap.Extensions.Mongo.MongoDefaults.ClientName -> string!
 Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>
 Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>.BsonClassMap(System.Action<MongoDB.Bson.Serialization.BsonClassMap<TDocument!>!>! classMapInitializer) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>.CollectionName(string! collectionName) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
+Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>.ClientName(string! clientName) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>.DatabaseName(string! databaseName) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>.IndexProvider<TIndexProvider>() -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.IMongoCollectionConfiguration<TDocument>

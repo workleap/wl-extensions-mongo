@@ -74,19 +74,22 @@ internal sealed class MongoIndexer : IMongoIndexer
             enumeratedTypes.Add(type);
         }
 
-        // Use default MongoDB client by default
-        clientName ??= MongoDefaults.ClientName;
-        var mongoClient = this._mongoClientProvider.GetClient(clientName);
-        var options = this._optionsMonitor.Get(clientName);
+        // When clientName is explicitly provided it overrides all document types; otherwise each type uses its own declared ClientName.
+        var explicitClientOverride = clientName;
 
-        var collectionInfoByDatabase = enumeratedTypes
+        var collectionInfoByClientAndDatabase = enumeratedTypes
             .Select(t => MongoCollectionInformationCache.GetCollectionInformation(t))
-            .GroupBy(info => info.DatabaseName);
+            // Use the effective database name (override if provided, otherwise the collection's DatabaseName) in the grouping key
+            .GroupBy(info => (ClientName: explicitClientOverride ?? info.ClientName ?? MongoDefaults.ClientName, DatabaseName: databaseName ?? info.DatabaseName));
 
-        foreach (var collectionInfos in collectionInfoByDatabase)
+        foreach (var collectionInfos in collectionInfoByClientAndDatabase)
         {
-            // User provided parameter has precedance over the MongoCollectionAttribute, otherwise use the default MongoDB database
-            var database = mongoClient.GetDatabase(databaseName ?? collectionInfos.Key ?? options.DefaultDatabaseName);
+            var effectiveClientName = collectionInfos.Key.ClientName;
+            var mongoClient = this._mongoClientProvider.GetClient(effectiveClientName);
+            var options = this._optionsMonitor.Get(effectiveClientName);
+
+            // User provided databaseName parameter has precedence over the collection's DatabaseName, otherwise use the client's default database
+            var database = mongoClient.GetDatabase(databaseName ?? collectionInfos.Key.DatabaseName ?? options.DefaultDatabaseName);
 
             // Attempt to update the indexes if we acquire the distributed lock
             var lockId = options.Indexing.DistributedLockName;

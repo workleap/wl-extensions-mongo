@@ -67,6 +67,7 @@ Workleap.Extensions.Mongo.MongoCollectionBuilder.MongoCollectionBuilder() -> voi
 Workleap.Extensions.Mongo.MongoCollectionBuilder<TDocument>
 Workleap.Extensions.Mongo.MongoCollectionBuilder<TDocument>.BsonClassMap(System.Action<MongoDB.Bson.Serialization.BsonClassMap<TDocument!>!>! classMapInitializer) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.MongoCollectionBuilder<TDocument>.CollectionName(string! collectionName) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
+Workleap.Extensions.Mongo.MongoCollectionBuilder<TDocument>.ClientName(string! clientName) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.MongoCollectionBuilder<TDocument>.DatabaseName(string! databaseName) -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.MongoCollectionBuilder<TDocument>.IndexProvider<TIndexProvider>() -> Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>!
 Workleap.Extensions.Mongo.MongoCollectionBuilder<TDocument>.MongoCollectionBuilder() -> void

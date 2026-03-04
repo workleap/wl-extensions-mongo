@@ -10,10 +10,13 @@ internal sealed class MongoCollectionProxy<TDocument> : IMongoCollection<TDocume
 {
     private readonly IMongoCollection<TDocument> _underlyingCollection;
 
-    public MongoCollectionProxy(IMongoClient client, IOptions<MongoClientOptions> optionsMonitor)
+    public MongoCollectionProxy(IMongoClientProvider clientProvider, IOptionsMonitor<MongoClientOptions> optionsMonitor)
     {
         var collectionInfo = MongoCollectionInformationCache.GetCollectionInformation(typeof(TDocument));
-        var databaseName = collectionInfo.DatabaseName ?? optionsMonitor.Value.DefaultDatabaseName;
+        var clientName = collectionInfo.ClientName ?? MongoDefaults.ClientName;
+        var client = clientProvider.GetClient(clientName);
+        var options = optionsMonitor.Get(clientName);
+        var databaseName = collectionInfo.DatabaseName ?? options.DefaultDatabaseName;
 
         this._underlyingCollection = client.GetDatabase(databaseName).GetCollection<TDocument>(collectionInfo.CollectionName);
     }

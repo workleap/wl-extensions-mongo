@@ -224,6 +224,18 @@ public class PersonDocument : IMongoDocument
 }
 ```
 
+For multiple clusters setup, you can specify which named client owns the collection using `ClientName`. This will have the following effect:
+* The injection of `IMongoCollection<TDocument>` will resolve the collection from the named client instead of the default client
+* The index creation from `UpdateIndexesAsync` will route each document type to its declared cluster automatically when scanning an assembly (no need to call `UpdateIndexesAsync` once per client)
+
+```csharp
+[MongoCollection("people", ClientName = "anotherCluster", DatabaseName = "foo")]
+public class PersonDocument : IMongoDocument
+{
+    // [...]
+}
+```
+
 ### With Configuration
 
 In certain scenarios, like in Domain Driven Design (DDD), one would like to persist their Domain Aggregates as is in the Document Database. These Domain objects are not aware of how they are persisted. They cannot be decorated with Persistence level attributes (ie `[MongoCollection()]`), nor can they implement `IMongoDocument`.
@@ -240,9 +252,10 @@ public sealed class Person
 ```csharp
 internal sealed class PersonConfiguration: IMongoCollectionConfiguration<Person>
 {
-    public void Configure(IMongoCollectionBuilder<Person> builder) 
+    public void Configure(IMongoCollectionBuilder<Person> builder)
     {
         builder.CollectionName("people");
+        builder.ClientName("anotherCluster"); // optional, not calling this will use the default client
         builder.DatabaseName("foo"); // optional, not calling this will use the default database
     }
 }
