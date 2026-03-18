@@ -1,2 +1,1 @@
 #nullable enable
-virtual Workleap.Extensions.Mongo.MongoIndexProvider<TDocument>.CreateSearchIndexModels() -> System.Collections.Generic.IEnumerable<MongoDB.Driver.CreateSearchIndexModel!>!
