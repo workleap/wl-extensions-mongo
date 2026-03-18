@@ -15,6 +15,7 @@ Workleap.Extensions.Mongo is a convenient set of .NET libraries designed to enha
 - [Property Mapping](#property-mapping)
 - [Logging and distributed tracing](#logging-and-distributed-tracing)
 - [Index management](#index-management)
+  - [Atlas Search indexes](#atlas-search-indexes)
 - [Field encryption](#field-encryption)
 - [Ephemeral MongoDB databases for integration tests](#ephemeral-mongodb-databases-for-integration-tests)
 - [Included Roslyn analyzers](#included-roslyn-analyzers)
@@ -41,7 +42,7 @@ Integrating the MongoDB C# driver into your C# projects can often lead to severa
 * **Support for multiple MongoDB clusters and/or databases**: You won't need to refactor your entire codebase to support multiple MongoDB data sources - it's supported by default.
 * **Elimination of boilerplate and duplicated code**: Remove redundant, copy-pasted MongoDB C# code from your codebase, enabling you to focus on actually utilizing the driver.
 * **Built-in instrumentation**: We provide built-in support for OpenTelemetry instrumentation, adhering to  [OpenTelemetry's semantic conventions for MongoDB](https://opentelemetry.io/docs/specs/semconv/database/mongodb/). Additionally, we offer an extra NuGet package for Application Insights .NET SDK support.
-* **Optional index management**: Declare indexes in your C# code, and then use our C# API to automatically create and update indexes based on what's declared in your code. Built-in Roslyn analyzers will assist developers in considering new indexes.
+* **Optional index management**: Declare regular and Atlas Search indexes in your C# code, and then use our C# API to automatically create and update indexes based on what's declared in your code. Built-in Roslyn analyzers will assist developers in considering new indexes.
 * **Optional async enumerables support**: You can simplify your code by using our extension methods that employ `IAsyncEnumerable` rather than more verbose MongoDB cursors.
 * **Optional field-level encryption**: Implement your own encrypt and decrypt methods, which can then automatically encrypt annotated MongoDB document fields for at-rest security.
 * **Optional ephemeral database for integration tests**: Each of your integration test methods can have its own new MongoDB database operating locally.
@@ -478,6 +479,48 @@ public class CatDocumentIndexes : MongoIndexProvider<PersonDocument>
     }
 }
 ```
+
+### Atlas Search indexes
+
+If you are using [MongoDB Atlas Search](https://www.mongodb.com/docs/atlas/atlas-search/), you can manage your search indexes from the same `MongoIndexProvider<TDocument>` by overriding the `CreateSearchIndexModels()` method:
+
+```csharp
+public class PersonDocumentIndexes : MongoIndexProvider<PersonDocument>
+{
+    public override IEnumerable<CreateIndexModel<PersonDocument>> CreateIndexModels()
+    {
+        yield return new CreateIndexModel<PersonDocument>(
+            Builders<PersonDocument>.IndexKeys.Ascending(x => x.Name),
+            new CreateIndexOptions { Name = "name" });
+    }
+
+    public override IEnumerable<CreateSearchIndexModel> CreateSearchIndexModels()
+    {
+        yield return new CreateSearchIndexModel("default", new BsonDocument
+        {
+            { "mappings", new BsonDocument { { "dynamic", true } } },
+        });
+    }
+}
+```
+
+The same `UpdateIndexesAsync()` call that manages regular indexes will also manage your Atlas Search indexes — no additional setup required.
+
+**Key differences from regular indexes:**
+
+- **Stable names**: Search index names are kept exactly as you provide them and are **not** hash-suffixed. This is because search index names are referenced directly in `$search` aggregation stages (e.g., `{ "$search": { "index": "default", ... } }`), so changing the name after creation would break queries.
+- **Change detection at runtime**: Because the name is stable, change detection works by comparing a SHA-256 hash of the index definition declared in code against the `latestDefinition` returned by Atlas. If they differ, the index definition is updated in-place — no drop is required.
+- **Name is required**: The `Name` property of `CreateSearchIndexModel` is mandatory. Unlike regular indexes where a name can be derived from the field list, there is no automatic fallback for search indexes.
+
+**Non-Atlas clusters:**
+
+If your cluster does not have the Atlas Search (`mongot`) process — for instance, a local Community MongoDB instance used during development or in integration tests — all search index management calls are silently skipped with a warning log message. Regular index management is **not** affected.
+
+```
+WARN: Atlas Search is not available on database 'mydb'. Skipping search index management.
+```
+
+This means you can freely declare search indexes in your providers without breaking local development or CI pipelines that run against a community MongoDB server.
 
 ## Field encryption
 

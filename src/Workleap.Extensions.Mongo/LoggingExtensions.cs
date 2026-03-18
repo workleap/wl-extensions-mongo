@@ -51,4 +51,20 @@ internal static partial class LoggingExtensions
     // CommandPerformanceAnalyzer
     [LoggerMessage(14, LogLevel.Warning, "Collection scan detected on command {MongoRequestId}")]
     public static partial void CollectionScanDetected(this ILogger logger, int mongoRequestId);
+
+    // SearchIndexCreator / SearchIndexDeleter
+    [LoggerMessage(15, LogLevel.Information, "Skipping {DocumentType} search index {IndexName} as it is already up-to-date on the database {DatabaseName}")]
+    public static partial void SkippingUpToDateSearchIndex(this ILogger logger, string documentType, string indexName, string databaseName);
+
+    [LoggerMessage(16, LogLevel.Information, "Creating {DocumentType} search index {IndexName} for the first time on the database {DatabaseName}")]
+    public static partial void CreatingNewSearchIndex(this ILogger logger, string documentType, string indexName, string databaseName);
+
+    [LoggerMessage(17, LogLevel.Information, "Updating {DocumentType} search index {IndexName} as its definition has changed on the database {DatabaseName}")]
+    public static partial void UpdatingSearchIndex(this ILogger logger, string documentType, string indexName, string databaseName);
+
+    [LoggerMessage(18, LogLevel.Information, "Dropping orphaned search index {IndexName} on collection {CollectionName} on the database {DatabaseName}")]
+    public static partial void DroppingOrphanedSearchIndex(this ILogger logger, string indexName, string collectionName, string databaseName);
+
+    [LoggerMessage(19, LogLevel.Warning, "Atlas Search is not available on the database {DatabaseName}. Skipping search index management.")]
+    public static partial void AtlasSearchNotAvailable(this ILogger logger, Exception exception, string databaseName);
 }
