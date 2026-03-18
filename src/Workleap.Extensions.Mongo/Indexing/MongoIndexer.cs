@@ -168,26 +168,21 @@ internal sealed class MongoIndexer : IMongoIndexer
 
             var expectedSearchNames = await searchTask.ConfigureAwait(false);
 
-            if (expectedSearchNames.Count > 0)
+            if (expectedSearchIndexNames.TryGetValue(collectionName, out var existingSearchNames))
             {
-                if (expectedSearchIndexNames.TryGetValue(collectionName, out var existingSearchNames))
-                {
-                    var concat = existingSearchNames.Concat(expectedSearchNames);
-                    expectedSearchIndexNames[collectionName] = concat.ToList();
-                }
-                else
-                {
-                    expectedSearchIndexNames.Add(collectionName, expectedSearchNames);
-                }
+                var concat = existingSearchNames.Concat(expectedSearchNames);
+                expectedSearchIndexNames[collectionName] = concat.ToList();
+            }
+            else
+            {
+                // Always record the collection, even when there are no expected search indexes.
+                expectedSearchIndexNames.Add(collectionName, expectedSearchNames);
             }
         }
 
         await IndexDeleter.ProcessAsync(database, expectedIndexes, this._loggerFactory, cancellationToken).ConfigureAwait(false);
 
-        if (expectedSearchIndexNames.Count > 0)
-        {
-            await SearchIndexDeleter.ProcessAsync(database, expectedSearchIndexNames, this._loggerFactory, cancellationToken).ConfigureAwait(false);
-        }
+        await SearchIndexDeleter.ProcessAsync(database, expectedSearchIndexNames, this._loggerFactory, cancellationToken).ConfigureAwait(false);
     }
 
     private static void AddConfigurationIndexes(IEnumerable<Type> documentTypes, IndexRegistry registry)
