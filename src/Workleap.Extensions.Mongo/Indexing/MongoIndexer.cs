@@ -11,6 +11,9 @@ internal sealed class MongoIndexer : IMongoIndexer
     private static readonly MethodInfo ProcessAsyncMethod = typeof(MongoIndexer).GetMethod(nameof(ProcessAsync), BindingFlags.NonPublic | BindingFlags.Instance)
         ?? throw new InvalidOperationException($"Could not find public instance method {nameof(MongoIndexer)}.{nameof(ProcessAsync)}");
 
+    private static readonly MethodInfo ProcessSearchIndexesAsyncMethod = typeof(MongoIndexer).GetMethod(nameof(ProcessSearchIndexesAsync), BindingFlags.NonPublic | BindingFlags.Instance)
+        ?? throw new InvalidOperationException($"Could not find private instance method {nameof(MongoIndexer)}.{nameof(ProcessSearchIndexesAsync)}");
+
     private readonly IMongoClientProvider _mongoClientProvider;
     private readonly IOptionsMonitor<MongoClientOptions> _optionsMonitor;
     private readonly ILoggerFactory _loggerFactory;
@@ -126,6 +129,7 @@ internal sealed class MongoIndexer : IMongoIndexer
         }
 
         var expectedIndexes = new Dictionary<string, IList<UniqueIndexName>>();
+        var expectedSearchIndexNames = new Dictionary<string, IList<string>>();
 
         foreach (var entry in registry)
         {
@@ -157,9 +161,28 @@ internal sealed class MongoIndexer : IMongoIndexer
             {
                 expectedIndexes.Add(collectionName, processingResult.ExpectedIndexes);
             }
+
+            var processSearchIndexesAsyncMethod = ProcessSearchIndexesAsyncMethod.MakeGenericMethod(documentType);
+            var searchTask = (Task<IList<string>>?)processSearchIndexesAsyncMethod.Invoke(this, new[] { indexProvider, database, cancellationToken })
+                ?? throw new InvalidOperationException($"'{nameof(MongoIndexer)}.{nameof(this.ProcessSearchIndexesAsync)}(...)' should have returned a task");
+
+            var expectedSearchNames = await searchTask.ConfigureAwait(false);
+
+            if (expectedSearchIndexNames.TryGetValue(collectionName, out var existingSearchNames))
+            {
+                var concat = existingSearchNames.Concat(expectedSearchNames);
+                expectedSearchIndexNames[collectionName] = concat.ToList();
+            }
+            else
+            {
+                // Always record the collection, even when there are no expected search indexes.
+                expectedSearchIndexNames.Add(collectionName, expectedSearchNames);
+            }
         }
 
         await IndexDeleter.ProcessAsync(database, expectedIndexes, this._loggerFactory, cancellationToken).ConfigureAwait(false);
+
+        await SearchIndexDeleter.ProcessAsync(database, expectedSearchIndexNames, this._loggerFactory, cancellationToken).ConfigureAwait(false);
     }
 
     private static void AddConfigurationIndexes(IEnumerable<Type> documentTypes, IndexRegistry registry)
@@ -199,5 +222,11 @@ internal sealed class MongoIndexer : IMongoIndexer
         where TDocument : class
     {
         return IndexCreator<TDocument>.ProcessAsync(provider, database, this._loggerFactory, cancellationToken);
+    }
+
+    private Task<IList<string>> ProcessSearchIndexesAsync<TDocument>(MongoIndexProvider<TDocument> provider, IMongoDatabase database, CancellationToken cancellationToken)
+        where TDocument : class
+    {
+        return SearchIndexCreator<TDocument>.ProcessAsync(provider, database, this._loggerFactory, cancellationToken);
     }
 }

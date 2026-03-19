@@ -45,3 +45,4 @@ Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument>.IndexProvider<TInde
 Workleap.Extensions.Mongo.IMongoCollectionConfiguration<TDocument>
 Workleap.Extensions.Mongo.IMongoCollectionConfiguration<TDocument>.Configure(Workleap.Extensions.Mongo.IMongoCollectionBuilder<TDocument!>! builder) -> void
 Workleap.Extensions.Mongo.MongoIndexProvider<TDocument>.IndexKeys.get -> MongoDB.Driver.IndexKeysDefinitionBuilder<TDocument!>!
+virtual Workleap.Extensions.Mongo.MongoIndexProvider<TDocument>.CreateSearchIndexModels() -> System.Collections.Generic.IEnumerable<MongoDB.Driver.CreateSearchIndexModel!>!
